@@ -1,0 +1,32 @@
+{% extends 'timetable_app/base.html' %}
+{% block content %}
+    <h2 class="mb-4">Timetable for {{ selected_batch }}</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Time Slot</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for time_slot in time_slots %}
+                <tr>
+                    <td>{{ time_slot.start_time }} - {{ time_slot.end_time }}</td>
+                    <td>
+                        {% for entry in entries %}
+                            {% if entry.time_slot.day == 'Mon' and entry.time_slot == time_slot %}
+                                <strong>{{ entry.course.code }}</strong><br>
+                                {{ entry.faculty.name }}<br>
+                                Room: {{ entry.classroom.name }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

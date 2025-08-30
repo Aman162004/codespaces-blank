@@ -1,0 +1,16 @@
+{% extends 'timetable_app/base.html' %}
+{% block content %}
+    <h2 class="mb-4">Select Your Batch</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="batch" class="form-label">Batch:</label>
+            <select name="batch" id="batch" class="form-control">
+                {% for batch in batches %}
+                    <option value="{{ batch.id }}">{{ batch }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">View Timetable</button>
+    </form>
+{% endblock %}

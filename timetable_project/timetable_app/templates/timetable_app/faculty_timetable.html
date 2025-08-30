@@ -1,0 +1,37 @@
+{% extends 'timetable_app/base.html' %}
+
+{% block content %}
+    <h2 class="mb-4">Timetable for {{ selected_faculty.name }}</h2>
+
+    {% if entries %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Time Slot</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% comment %}
+                    This part requires more advanced template logic to group entries by time slot and day.
+                    For a simple display, we'll list all entries.
+                {% endcomment %}
+                {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.time_slot.get_day_display }}</td>
+                        <td>{{ entry.time_slot.start_time|time:"H:i" }} - {{ entry.time_slot.end_time|time:"H:i" }}</td>
+                        <td>{{ entry.course.code }}</td>
+                        <td>{{ entry.batch }}</td>
+                        <td>{{ entry.classroom.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No timetable entries found for this faculty member.</p>
+    {% endif %}
+{% endblock %}
